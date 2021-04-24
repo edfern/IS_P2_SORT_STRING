@@ -11,7 +11,11 @@ pipeline{
 					credentialsId: 'ccrreeddeennttiiaall',
 					bypassProxy: true,
 					timeout: 300
-				),
+				)
+			}
+		}
+		stage('Udpload JFROG'){
+			steps{
 				rtUpload (
 					serverId: 'ingenieria_software_parcial2',
 					spec: '''{
