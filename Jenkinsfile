@@ -1,36 +1,38 @@
 pipeline{
 	agent any 
 	stages{
-		stage('Maven'){
+		
+		stage('MAVEN RESOLVER'){
 			steps{
-				script{
-					sh 'pwd'
-					sh 'mvn package'
-				}
-				echo 'Compilacion finalizada exitosamente'
-			}
-		}
-		stage('Udpload JFROG'){
-			steps{
-				rtUpload (
-					def server = Artifactory.server "artifactory"
-					def buildInfo = Artifactory.newBuildInfo()
-					buildInfo.env.capture = true
-					buildInfo.env.collect()
+				rtMavenResolver (
+					id: 'resolver-unique-id',
+					serverId: 'ingenieria_software_parcial2-1',
+					releaseRepo: 'libs-release',
+					snapshotRepo: 'libs-snapshot'
+				)  
+ 
+				rtMavenDeployer (
+					id: 'deployer-unique-id',
 					serverId: 'ingenieria_software_parcial2',
-					spec: '''{
-						  "files": [
-							{
-							  "pattern": "**/target/**.jar",
-							  "target": "ingenieria_software_parcial2/"
-							}
-						 ]
-					}''',
-					server.upload spec: uploadSpec, buildInfo: buildInfo
-					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true
-					server.publishBuildInfo buildInfo
+					releaseRepo: 'libs-release-local',
+					snapshotRepo: 'libs-snapshot-local',
+					// By default, 3 threads are used to upload the artifacts to Artifactory. You can override this default by setting:
+					threads: 6,
+				)
+				rtMavenRun (
+					tool: MAVEN_TOOL,
+					pom: 'pom.xml',
+					goals: 'clean install',
+		
+					opts: '-Xms1024m -Xmx4096m',
+					resolverId: 'resolver-unique-id',
+					deployerId: 'deployer-unique-id',
+					// If the build name and build number are not set here, the current job name and number will be used:
+					buildName: 'my-build-name',
+					buildNumber: '17'
 				)
 			}
 		}
+		
 	}
 }
