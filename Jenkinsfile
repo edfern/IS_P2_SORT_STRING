@@ -1,6 +1,12 @@
 pipeline{
 	agent any 
 	stages{
+		stage('Maven'){
+			steps{
+				sh 'pwd'
+				sh 'mvn package'
+			}
+		}
 		stage('Udpload JFROG'){
 			steps{
 				rtUpload (
