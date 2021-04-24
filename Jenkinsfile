@@ -21,7 +21,9 @@ pipeline{
 							  "target": "ingenieria_software_parcial2/"
 							}
 						 ]
-					}'''
+					}''',
+					buildName: 'HiJFrog',
+					buildNumber: '42'
 				)
 			}
 		}
