@@ -3,8 +3,11 @@ pipeline{
 	stages{
 		stage('Maven'){
 			steps{
-				sh 'pwd'
-				sh 'mvn package'
+				script{
+					sh 'pwd'
+					sh 'mvn package'
+				}
+				echo 'Compilacion finalizada exitosamente'
 			}
 		}
 		stage('Udpload JFROG'){
