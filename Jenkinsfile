@@ -17,7 +17,7 @@ pipeline{
 					spec: '''{
 						  "files": [
 							{
-							  "pattern": "**/target/**.jar",
+							  "pattern": "target/**.jar",
 							  "target": "ingenieria_software_parcial2/"
 							}
 						 ]
