@@ -6,13 +6,7 @@ pipeline{
 					MAVEN_HOME = '/usr/share/maven'
 				}
 			steps{
-				rtMavenResolver (
-					id: 'MAVEN_RESOLVER',
-					serverId: 'artifactory',
-					releaseRepo: 'ingenieria_software_parcial2',
-					snapshotRepo: 'libs-snapshot'
-				)  
-				 
+				
 				rtMavenDeployer (
 					id: 'MAVEN_DEPLOYER',
 					serverId: 'artifactory',
@@ -23,7 +17,6 @@ pipeline{
 					// Tool name from Jenkins configuration.
 					pom: 'pom.xml',
 					goals: 'install',
-					resolverId: 'MAVEN_RESOLVER',
 					deployerId: 'MAVEN_DEPLOYER'
 				)
 				script{
