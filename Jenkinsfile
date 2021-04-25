@@ -20,7 +20,7 @@ pipeline{
 					threads: 6,
 				)
 				rtMavenRun (
-					tool: MAVEN_TOOL,
+					maven: 'Maven 3.3.9',
 					pom: 'pom.xml',
 					goals: 'clean install',
 		
