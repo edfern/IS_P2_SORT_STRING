@@ -21,7 +21,7 @@ pipeline{
 				)
 				rtMavenRun (
 					// Tool name from Jenkins configuration.
-					pom: 'pom.xml',
+					pom: 'IS_P2_RECURSIVE_BUBBLE_SORT/pom.xml',
 					goals: 'clean install',
 					resolverId: 'resolver-unique-id',
 					deployerId: 'deployer-unique-id',
