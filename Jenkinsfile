@@ -7,26 +7,24 @@ pipeline{
 				}
 			steps{
 				rtMavenResolver (
-					id: 'resolver-unique-id',
-					serverId: 'ingenieria_software_parcial2',
-					releaseRepo: 'libs-release',
+					id: 'MAVEN_RESOLVER',
+					serverId: 'artifactory',
+					releaseRepo: 'ingenieria_software_parcial2',
 					snapshotRepo: 'libs-snapshot'
 				)  
 				 
 				rtMavenDeployer (
-					id: 'deployer-unique-id',
-					serverId: 'ingenieria_software_parcial2',
-					releaseRepo: 'libs-release-local',
+					id: 'MAVEN_DEPLOYER',
+					serverId: 'artifactory',
+					releaseRepo: 'ingenieria_software_parcial2',
 					snapshotRepo: 'libs-snapshot-local',
 				)
 				rtMavenRun (
 					// Tool name from Jenkins configuration.
 					pom: 'pom.xml',
 					goals: 'clean install',
-					resolverId: 'resolver-unique-id',
-					deployerId: 'deployer-unique-id',
-					buildName: 'my-build-name',
-					buildNumber: '17'
+					resolverId: 'MAVEN_RESOLVER',
+					deployerId: 'MAVEN_DEPLOYER'
 				)
 				script{
 					sh 'pwd'
@@ -34,5 +32,12 @@ pipeline{
 			
 			}
 		}
+		stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "artifactory"
+                )
+            }
+        }
 	}
 }
