@@ -9,14 +9,14 @@ pipeline{
 				rtMavenResolver (
 					id: 'resolver-unique-id',
 					serverId: 'ingenieria_software_parcial2',
-					releaseRepo: 'libs-release',
+					releaseRepo: 'ingenieria_software_parcial2',
 					snapshotRepo: 'libs-snapshot'
 				)  
 				 
 				rtMavenDeployer (
 					id: 'deployer-unique-id',
 					serverId: 'ingenieria_software_parcial2',
-					releaseRepo: 'libs-release-local',
+					releaseRepo: 'ingenieria_software_parcial2',
 					snapshotRepo: 'libs-snapshot-local',
 				)
 				rtMavenRun (
