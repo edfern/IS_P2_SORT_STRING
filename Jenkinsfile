@@ -21,13 +21,16 @@ pipeline{
 				)
 				rtMavenRun (
 					// Tool name from Jenkins configuration.
-					pom: 'test-1-parcial2/pom.xml',
+					pom: './pom.xml',
 					goals: 'clean install',
 					resolverId: 'resolver-unique-id',
 					deployerId: 'deployer-unique-id',
 					buildName: 'my-build-name',
 					buildNumber: '17'
 				)
+				script{
+					sh 'pwd'
+				}
 			
 			}
 		}
